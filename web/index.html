@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Order Viewer</title>
+</head>
+<body>
+  <h1>Order Viewer</h1>
+  <input id="order_id" placeholder="Введите order_uid" />
+  <button onclick="findOrder()">Найти</button>
+  <pre id="result"></pre>
+  <script>
+    async function findOrder() {
+      const id = document.getElementById("order_id").value.trim();
+      const res = await fetch(`http://localhost:8081/order/${id}`);
+      if (res.ok) {
+        const data = await res.json();
+        document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+      } else {
+        document.getElementById("result").textContent = "Не найдено";
+      }
+    }
+  </script>
+</body>
+</html>
